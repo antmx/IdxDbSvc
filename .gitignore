@@ -262,3 +262,4 @@ __pycache__/
 
 # JavaScript files auto-generated from custom TypeScript
 [Ss]ite/scripts/custom/*.js
+[Ss]ite/scripts/specs/*.js
