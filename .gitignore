@@ -260,5 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 
-# JavaScript files generated from custom TypeScript
-./Site/scripts/custom/*.js
+# JavaScript files auto-generated from custom TypeScript
+[Ss]ite/scripts/custom/*.js
