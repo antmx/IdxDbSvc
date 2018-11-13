@@ -1,5 +1,5 @@
 ﻿
-class CreateDbIndexArgs {
+export class CreateDbIndexArgs {
 
     IndexName: string;
     KeyPath: string | Array<string>;
@@ -13,4 +13,3 @@ class CreateDbIndexArgs {
     }
 
 }
-

@@ -1,0 +1,16 @@
+{
+    "name": "idxdbsvc-package",
+    "version": "1.0.0",
+    "description": "IndexedDB helper service",
+    "main": "index.js",
+    "scripts": {
+        "test": "",
+        "build": "browserify scripts-dist/IdxDbSvc.js --debug | exorcist scripts-dist/bundle.map.js > scripts-dist/bundle.js && browserify scripts-dist/specs/IdxDbSvc_spec.js --debug | exorcist scripts-dist/specs/bundle.map.js > scripts-dist/specs/bundle.js"
+    },
+    "devDependencies": {
+        "browserify": "latest",
+        "watch": "latest"
+    },
+    "author": "Netricity",
+    "license": "ISC"
+}

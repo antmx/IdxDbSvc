@@ -3,23 +3,28 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    
+
     <link href="content/jasmine/jasmine_favicon.png" rel="shortcut icon" type="image/x-icon" />
     <link href="content/jasmine/jasmine.css" rel="stylesheet" />
 
+    <script>var exports = {};</script>
+
     <!--libs-->
-    <script src="scripts/jquery/jquery-3.2.1.js"></script>
+    <!--<script src="scripts/jquery/jquery-3.2.1.js"></script>-->
     <script src="scripts/jasmine/jasmine.js"></script>
     <script src="scripts/jasmine/jasmine-html.js"></script>
     <script src="scripts/jasmine/boot.js"></script>
+    <script src="scripts/require/r.js"></script>
+    <script src="scripts/require/require.js"></script>
 
     <!--src to test-->
-    <script src="scripts/custom/DbTableDef.js"></script>
-    <script src="scripts/custom/CreateDbIndexArgs.js"></script>
-    <script src="scripts/custom/IdxDbSvc.js"></script>
+    <script src="scripts/custom-dist/DbTableDef.js"></script>
+    <script src="scripts/custom-dist/CreateDbIndexArgs.js"></script>
+    <script src="scripts/custom-dist/IdxDbSvc.js"></script>
 
     <!--Jasmine test specs-->
-    <script src="scripts/specs/IdxDbSvc.js"></script>
+    <script src="scripts/custom-dist/specs/IdxDbSvc.js"></script>
+
 </head>
 <body>
     <!--IdxDbSvc Jasmine Tests-->

@@ -2,9 +2,9 @@
     this: true, for: true, white: true
 */
 
-/// <reference path="../../jQuery/jquery.js" />
-/// <reference path="../Misc.js" />
-/// <reference path="../Sync.js" />
+///// <reference path="../../jQuery/jquery.js" />
+///// <reference path="../Misc.js" />
+///// <reference path="../Sync.js" />
 
 /**
  * DbQuerySvc : Performs IndexedDb data CRUD tasks.
@@ -778,7 +778,7 @@ var DbQuerySvc = (function () {
                 }
                 else {
                     key = field[0];
-                    reverse = (field[1]) ? -1 : 1;
+                    reverse = field[1] ? -1 : 1;
                 }
 
                 fieldValueA = itemA[key];
@@ -795,7 +795,7 @@ var DbQuerySvc = (function () {
             }
 
             return result;
-        }
+        };
     };
     
     // Return the instatiated 'class'

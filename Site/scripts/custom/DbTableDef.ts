@@ -1,5 +1,5 @@
 ﻿
-class DbTableDef {
+export class DbTableDef {
 
     TableName: string;
     ColNames: Array<string>;
@@ -20,4 +20,3 @@ enum BudgetType {
     YearSpecific = 1,
     MultiYear = 2
 }
-

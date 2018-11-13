@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "noEmitOnError": false,
+        "removeComments": false,
+        "sourceMap": true,
+        "target": "es2015",
+        "typeRoots": [],
+        //"types": [], // Explicitly specify an empty array so that the TS2 @types modules are not acquired since we aren't ready for them yet.
+        "rootDir": "./scripts/custom",
+        "outDir": "./scripts/custom-dist"
+    },
+    "exclude": [
+        "node_modules",
+        "wwwroot",
+        //"*.js"
+    ]
+}
