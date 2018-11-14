@@ -1,7 +1,8 @@
 "use strict";
+/// <reference path="dbtabledef.ts" />
 Object.defineProperty(exports, "__esModule", { value: true });
 var CreateDbIndexArgs_1 = require("./CreateDbIndexArgs");
-var IdxDbSvc = (function () {
+var IdxDbSvc = /** @class */ (function () {
     function IdxDbSvc(idxDbEnv) {
         this.AddIsModifiedColumn = function (indexArray) {
             indexArray.push(new CreateDbIndexArgs_1.CreateDbIndexArgs("IsModified", "IsModified", { unique: false, multiEntry: false }));
@@ -13,7 +14,9 @@ var IdxDbSvc = (function () {
         return new Promise(function (resolve, reject) {
             var dbOpenRequest = self.IdxDbEnv.open(dbName, dbVersion);
             dbOpenRequest.onupgradeneeded = function (event) {
+                console.log("onupgradeneeded");
                 self.OpenDbRequestStatus = "upgrading";
+                //deferred.notify("onupgradeneeded started");
                 var db = dbOpenRequest.result;
                 db.onerror = function (event) {
                     reject(Error("Error opening database "));
@@ -21,17 +24,25 @@ var IdxDbSvc = (function () {
                 db.onabort = function (event) {
                     reject("Database opening aborted");
                 };
+                // Create a store (table) for each table definition provided
                 tableDefs.forEach(function (tblDef) {
+                    //deferred.notify("Creating store " + tblDef.TableName);
                     self.BuildStore(db, tblDef.TableName, tblDef.ColNames, tblDef.PkColName, tblDef.AddIsModifiedCol);
+                    //deferred.notify("Created store " + tblDef.TableName);
                 });
                 self.OpenDbRequestStatus = "ok";
-                resolve(true);
+                //deferred.notify("dbOpenRequest.onupgradeneeded completed");
+                dbOpenRequest.result.close();
+                //resolve(true);
             };
             dbOpenRequest.onsuccess = function (event) {
                 if (self.OpenDbRequestStatus == "ok") {
+                    //deferred.notify("dbOpenRequest.onsuccess - ok");
+                    dbOpenRequest.result.close();
                     resolve(true);
                 }
                 else {
+                    //deferred.notify("dbOpenRequest.onsuccess - upgrading");
                 }
             };
             dbOpenRequest.onerror = function (event) {
@@ -45,6 +56,7 @@ var IdxDbSvc = (function () {
     IdxDbSvc.prototype.BuildStore = function (db, tblName, colNames, pkColName, addIsModifiedCol) {
         if (!colNames || !colNames.length || colNames[0] == null) {
             alert("No column data found for table " + tblName);
+            //deferred.notify("No column data found for table " + tblName);
             return;
         }
         var self = this;
@@ -62,6 +74,7 @@ var IdxDbSvc = (function () {
                 isPkCol = false;
             }
             if (isPkCol) {
+                // Only create indexes for PK columns
                 indexesToCreate.push(new CreateDbIndexArgs_1.CreateDbIndexArgs(colName, colName, { unique: isPkCol, multiEntry: false }));
             }
             if (colName === pkColName) {
@@ -81,9 +94,10 @@ var IdxDbSvc = (function () {
         var self = this;
         var dbOpenRequest = self.IdxDbEnv.open(dbName, dbVersion);
         return new Promise(function (resolve, reject) {
-            dbOpenRequest.onsuccess = function (ev) {
+            dbOpenRequest.onsuccess = function (ev /*Event*/) {
                 var db = ev.target.result;
                 resolve(db.objectStoreNames);
+                dbOpenRequest.result.close();
             };
             dbOpenRequest.onerror = function (event) {
                 reject(Error("Error opening database"));
@@ -102,6 +116,8 @@ var IdxDbSvc = (function () {
             };
             dbDeleteRequest.onblocked = function (event) {
                 reject(Error(event.type));
+                event.target.result.close();
+                console.log("blocked");
             };
             dbDeleteRequest.onupgradeneeded = function (event) {
                 reject(Error(event.type));

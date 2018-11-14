@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var DbTableDef = (function () {
+/**
+ * Represents setting for defining a database table.
+ */
+var DbTableDef = /** @class */ (function () {
     function DbTableDef(tableName, colNames, pkColName, addIsModifiedCol) {
         if (addIsModifiedCol === void 0) { addIsModifiedCol = false; }
         this.TableName = tableName;

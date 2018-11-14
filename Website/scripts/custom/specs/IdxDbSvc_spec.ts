@@ -8,8 +8,15 @@ import { IdxDbSvc } from "../IdxDbSvc";
 describe("IdxDbSvc", () => {
 
     var svc: IdxDbSvc;
+    var originalTimeout: number;
 
     beforeEach((done: Function) => {
+
+        //    console.log("beforeEach - increasing timeout");
+        //    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+        //    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+
+        console.log("beforeEach - deleting db");
 
         svc = new IdxDbSvc(window.indexedDB);
 
@@ -25,11 +32,16 @@ describe("IdxDbSvc", () => {
             });
     });
 
+    //afterEach(() => {
+
+    //    console.log("restoring timeout");
+    //    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    //});
+
     describe("constructor", () => {
 
         it("sets up the properties from the args", (done: Function) => {
 
-            //expect(svc.$).toBeDefined();
             expect(svc.IdxDbEnv).toBeDefined();
 
             done();
@@ -51,7 +63,7 @@ describe("IdxDbSvc", () => {
 
                     svc.GetStoreNames("DBName", 1)
                         .then((objectStoreNames) => {
-                            debugger;
+
                             expect(objectStoreNames).toBeDefined();
                             expect(objectStoreNames.length).toEqual(2);
                             expect(objectStoreNames[0]).toEqual("tblBar");
@@ -67,10 +79,39 @@ describe("IdxDbSvc", () => {
         });
     });
 
-    //describe("DeleteDb", () => {
-    //    it("Deletes a database", (done) => {
+    describe("DeleteDb", () => {
+        it("Deletes a database", (done: Function) => {
 
-    //    });
+            console.log("DeleteDb - creating db to be deleted");
 
-    //});
+            svc.CreateDb("DBName", 1, [new DbTableDef("tblFoo", ["FooCol1", "FooCol2"], "FooCol1", true)])
+                .then((createResult) => {
+
+                    console.log("DeleteDb - It deletes a database - creating db - result %s", createResult);
+
+                    if (createResult) {
+
+                        svc.DeleteDb("DBName").then((deleteResult) => {
+
+                            console.log("DeleteDb - It deletes a database - deleting db - result %s", deleteResult);
+
+                            expect(deleteResult).toEqual(true);
+
+                            done();
+                        });
+
+                    }
+                    else {
+                        console.error("CreateDb result was %s", createResult);
+                    }
+
+                }).catch((failReason) => {
+
+                    console.error("DeleteDb - It deletes a database - creating db failed: %s", failReason);
+
+                    done();
+                });
+        });
+
+    });
 });

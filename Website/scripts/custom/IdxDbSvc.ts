@@ -23,6 +23,8 @@ export class IdxDbSvc {
 
             dbOpenRequest.onupgradeneeded = function (event: IDBVersionChangeEvent) {
 
+                console.log("onupgradeneeded");
+
                 self.OpenDbRequestStatus = "upgrading";
                 //deferred.notify("onupgradeneeded started");
 
@@ -50,7 +52,7 @@ export class IdxDbSvc {
 
                 self.OpenDbRequestStatus = "ok";
                 //deferred.notify("dbOpenRequest.onupgradeneeded completed");
-                
+                dbOpenRequest.result.close();
                 resolve(true);
             };
 
@@ -58,6 +60,7 @@ export class IdxDbSvc {
 
                 if (self.OpenDbRequestStatus == "ok") {
                     //deferred.notify("dbOpenRequest.onsuccess - ok");
+                    dbOpenRequest.result.close();
                     resolve(true);
                 }
                 else {
@@ -149,6 +152,8 @@ export class IdxDbSvc {
                 var db: IDBDatabase = ev.target.result;
 
                 resolve(db.objectStoreNames);
+
+                dbOpenRequest.result.close();
             };
 
             dbOpenRequest.onerror = function (event: Event) {
@@ -168,7 +173,7 @@ export class IdxDbSvc {
     public DeleteDb(dbName: string): Promise<boolean> {
 
         return new Promise((resolve, reject) => {
-
+            
             var dbDeleteRequest = this.IdxDbEnv.deleteDatabase(dbName);
 
             dbDeleteRequest.onerror = function (event: Event) {
@@ -179,6 +184,8 @@ export class IdxDbSvc {
             dbDeleteRequest.onblocked = function (event: Event) {
 
                 reject(Error(event.type));
+                (event.target as any).result.close();
+                console.log("blocked");
             };
 
             dbDeleteRequest.onupgradeneeded = function (event: Event) {
