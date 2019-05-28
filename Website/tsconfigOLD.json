@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "es2015",
+        "noImplicitAny": false,
+        "noEmitOnError": true,
+        "removeComments": false,
+        "sourceMap": true,
+        "target": "es5",
+        "rootDir": "./scripts/custom",
+        "outDir": "./scripts-dist2",
+        "lib": [ "es6", "dom" ]
+    },
+    "exclude": [
+        "node_modules",
+        "wwwroot",
+        "bin",
+        "obj"
+    ]
+
+}

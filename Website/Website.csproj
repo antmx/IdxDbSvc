@@ -63,14 +63,6 @@
     <Content Include="content\jasmine\jasmine.css" />
     <Content Include="content\jasmine\jasmine_favicon.png" />
     <Content Include="Index.html" />
-    <Content Include="scripts-dist\bundle.js" />
-    <Content Include="scripts-dist\bundle.map.js" />
-    <Content Include="scripts-dist\CreateDbIndexArgs.js" />
-    <Content Include="scripts-dist\DbTableDef.js" />
-    <Content Include="scripts-dist\IdxDbSvc.js" />
-    <Content Include="scripts-dist\specs\bundle.js" />
-    <Content Include="scripts-dist\specs\bundle.map.js" />
-    <Content Include="scripts-dist\specs\IdxDbSvc_spec.js" />
     <Content Include="scripts\bluebird\bluebird.js" />
     <Content Include="scripts\custom\DbBuilderSvc.js" />
     <Content Include="scripts\custom\DbQuerySvc.js" />
@@ -78,13 +70,10 @@
     <Content Include="scripts\jasmine\console.js" />
     <Content Include="scripts\jasmine\jasmine-html.js" />
     <Content Include="scripts\jasmine\jasmine.js" />
-    <Content Include="scripts-dist\CreateDbIndexArgs.js.map" />
-    <Content Include="scripts-dist\DbTableDef.js.map" />
-    <Content Include="scripts-dist\IdxDbSvc.js.map" />
-    <Content Include="scripts-dist\specs\IdxDbSvc_spec.js.map" />
     <Content Include="compile.bat" />
     <Content Include="package.json" />
     <Content Include="readme.md" />
+    <Content Include="scripts\custom\compile.bat" />
     <None Include="scripts\jquery\jquery-3.3.1.intellisense.js" />
     <Content Include="scripts\jquery\jquery-3.3.1.js" />
     <Content Include="scripts\jquery\jquery-3.3.1.min.js" />
@@ -124,9 +113,13 @@
     <TypeScriptCompile Include="scripts\custom\CreateDbIndexArgs.ts" />
     <TypeScriptCompile Include="scripts\custom\DbTableDef.ts" />
     <TypeScriptCompile Include="scripts\custom\IdxDbSvc.ts" />
+    <TypeScriptCompile Include="scripts\custom\Misc.ts" />
     <TypeScriptCompile Include="scripts\custom\specs\IdxDbSvc_spec.ts" />
     <TypeScriptCompile Include="scripts\jasmine\jasmine.d.ts" />
     <TypeScriptCompile Include="scripts\jquery\jquery.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scripts-dist\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
